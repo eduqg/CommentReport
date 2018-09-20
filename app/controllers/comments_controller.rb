@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
   # GET /comments
   def index
     @comments = Comment.all
-
     render json: @comments
   end
 
@@ -36,6 +35,16 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   def destroy
     @comment.destroy
+  end
+
+  # Shows every reported comments
+  def reported_comments
+    @reports = Report.all
+    result = []
+    @reports.each do |report|
+      result << Comment.find(report.comment_id)
+    end
+    render json: result
   end
 
   private

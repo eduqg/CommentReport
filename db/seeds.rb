@@ -16,3 +16,17 @@ User.create!([
     {name:'Eduardo' , email:'edu@gmail.com', password:'123456'},
     {name:'YIMobile' , email:'yimobile@gmail.com', password:'123456'}
 ])
+
+Comment.create!([
+    {text:'This is Music!' , user_id:'2', event_id:'1'},
+    {text:'Only have Claudia Leite :(', user_id:'1', event_id:'2'},
+    {text:'I like it' , user_id:'2', event_id:'1'},
+    {text:'Let\'s Go!', user_id:'1', event_id:'2'}
+
+
+])
+
+Report.create!([
+    {user_id:'1' , comment_id:'2'},
+    {user_id:'2' , comment_id:'4'}
+])
