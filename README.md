@@ -30,6 +30,7 @@ Execute os comandos para configurar a versão correta para o projeto.
 ```console
 $ rvm install 2.5
 $ gem install rails -v 5.2.0
+$ bundle install
 ```
 
 [Instale o MySQL](https://www.digitalocean.com/community/tutorials/how-to-use-mysql-with-your-ruby-on-rails-application-on-ubuntu-14-04) para o banco de dados da aplicação.
