@@ -24,7 +24,12 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe ReportsController, type: :controller do
-
+  before(:each) do
+    user = FactoryGirl.create(:user)
+    event = FactoryGirl.create(:event)
+    comment = FactoryGirl.create(:comment, user: user, event: event)
+    report = FactoryGirl.create(:report, user: user, comment: comment)
+  end
   # This should return the minimal set of attributes required to create a valid
   # Report. As you add validations to Report, be sure to
   # adjust the attributes here as well.
@@ -36,94 +41,5 @@ RSpec.describe ReportsController, type: :controller do
     skip("Add a hash of attributes invalid for your model")
   }
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ReportsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "returns a success response" do
-      report = Report.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET #show" do
-    it "returns a success response" do
-      report = Report.create! valid_attributes
-      get :show, params: {id: report.to_param}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Report" do
-        expect {
-          post :create, params: {report: valid_attributes}, session: valid_session
-        }.to change(Report, :count).by(1)
-      end
-
-      it "renders a JSON response with the new report" do
-
-        post :create, params: {report: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(report_url(Report.last))
-      end
-    end
-
-    context "with invalid params" do
-      it "renders a JSON response with errors for the new report" do
-
-        post :create, params: {report: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
-      end
-    end
-  end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested report" do
-        report = Report.create! valid_attributes
-        put :update, params: {id: report.to_param, report: new_attributes}, session: valid_session
-        report.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "renders a JSON response with the report" do
-        report = Report.create! valid_attributes
-
-        put :update, params: {id: report.to_param, report: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
-      end
-    end
-
-    context "with invalid params" do
-      it "renders a JSON response with errors for the report" do
-        report = Report.create! valid_attributes
-
-        put :update, params: {id: report.to_param, report: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested report" do
-      report = Report.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: report.to_param}, session: valid_session
-      }.to change(Report, :count).by(-1)
-    end
-  end
-
 end
